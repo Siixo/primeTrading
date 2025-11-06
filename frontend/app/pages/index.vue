@@ -1,13 +1,24 @@
+import { type } from '../../.nuxt/types/imports';
 <script setup></script>
 
 <template>
   <div>
     <div class="relative h-screen w-full">
-      <img
-        src="/imgs/dennis-kummer-52gEprMkp7M-unsplash.jpg"
-        alt="Stock trading hero"
+      <video
         class="h-full w-full object-cover object-center"
-      />
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        aria-label="Stock trading hero video background"
+      >
+        <source src="/277097.mp4" type="video/mp4" />
+        <p class="text-center text-gray-500 mt-4">
+          Your browser does not support the video tag. Please update your
+          browser for the best experience.
+        </p>
+      </video>
       <div
         class="absolute inset-0 flex flex-col items-center justify-center bg-black/50 text-center"
       >
