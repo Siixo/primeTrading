@@ -10,9 +10,6 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Rebuild native modules for the container architecture
-RUN npm rebuild better-sqlite3
-
 # Copy project files
 COPY . .
 

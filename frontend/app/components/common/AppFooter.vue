@@ -3,18 +3,13 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 
 const items: NavigationMenuItem[] = [
   {
-    label: "Figma Kit",
-    to: "https://go.nuxt.com/figma-ui",
-    target: "_blank",
-  },
-  {
-    label: "Playground",
-    to: "https://stackblitz.com/edit/nuxt-ui",
-    target: "_blank",
-  },
-  {
     label: "Releases",
     to: "https://github.com/nuxt/ui/releases",
+    target: "_blank",
+  },
+  {
+    label: "Legal mentions",
+    to: "https://stackblitz.com/edit/nuxt-ui",
     target: "_blank",
   },
 ];
@@ -40,12 +35,12 @@ const items: NavigationMenuItem[] = [
         aria-label="Discord"
       />
       <UButton
-        icon="i-simple-icons-x"
+        icon="i-simple-icons-linkedin"
         color="neutral"
         variant="ghost"
-        to="https://go.nuxt.com/x"
+        to="https://www.linkedin.com/in/nicolasknittel31"
         target="_blank"
-        aria-label="X"
+        aria-label="LinkedIn"
       />
       <UButton
         icon="i-simple-icons-github"

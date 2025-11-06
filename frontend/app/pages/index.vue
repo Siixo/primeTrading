@@ -1,8 +1,4 @@
-<script setup>
-definePageMeta({
-  layout: "landing",
-});
-</script>
+<script setup></script>
 
 <template>
   <div>
