@@ -1,0 +1,53 @@
+# Python / Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.sqlite3
+/static/
+media/
+.env
+
+# Node / Nuxt
+node_modules/
+.nuxt/
+dist/
+.cache/
+*.log
+.env.local
+.env.production
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+
+#Bruno
+
+Bruno/
+
