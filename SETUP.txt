@@ -66,3 +66,5 @@ docker-compose down
 
 # Stop and remove volumes (database data)
 docker-compose down -v
+
+
