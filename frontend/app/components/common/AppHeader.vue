@@ -28,7 +28,7 @@
         <UButton
           color="neutral"
           variant="ghost"
-          to="https://github.com/nuxt/ui"
+          to="https://github.com/Siixo/primeTrading"
           target="_blank"
           icon="i-simple-icons-github"
           aria-label="GitHub"

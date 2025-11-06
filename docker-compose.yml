@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: primetrading_db
+    environment:
+      POSTGRES_DB: primeTradingDB
+      POSTGRES_USER: siixo
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-your_secure_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U siixo -d primeTradingDB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: primetrading_backend
+    command: python manage.py runserver 0.0.0.0:8100
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__
+    ports:
+      - "8100:8100"
+    env_file:
+      - ./backend/.env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=primeTradingDB
+      - DB_USER=siixo
+      - DB_PASSWORD=!?Barney080798
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: primetrading_frontend
+    command: npm run dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.nuxt
+    ports:
+      - "3100:3100"
+    environment:
+      - NODE_ENV=development
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3100
+      - API_URL=http://backend:8100
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

@@ -52,3 +52,17 @@ python manage.py createsuperuser
 
 # Run the development server
 python manage.py runserver
+
+
+##DOCKER##
+# From the primeTrading directory
+docker-compose up --build
+
+# Or run in detached mode
+docker-compose up -d --build
+
+# Stop everything
+docker-compose down
+
+# Stop and remove volumes (database data)
+docker-compose down -v
