@@ -45,16 +45,12 @@ const items = [
     to: "/",
   },
   {
-    label: "Trading",
-    to: "/trading",
+    label: "Graphs",
+    to: "/graphs",
   },
   {
-    label: "Portfolio",
-    to: "/portfolio",
-  },
-  {
-    label: "Markets",
-    to: "/markets",
+    label: "Predictions",
+    to: "/predictions",
   },
   {
     label: "About",
