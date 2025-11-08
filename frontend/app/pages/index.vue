@@ -8,7 +8,6 @@ import { type } from '../../.nuxt/types/imports';
         class="h-full w-full object-cover object-center"
         autoplay
         loop
-        muted
         playsinline
         preload="auto"
         aria-label="Stock trading hero video background"
