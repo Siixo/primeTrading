@@ -1,5 +1,50 @@
 import { type } from '../../.nuxt/types/imports';
-<script setup></script>
+<script setup>
+const cards = ref([
+  {
+    title: "NuxtJS",
+    description:
+      "Frontend built with NuxtJS, a powerful Vue.js framework for server-side rendering.",
+    icon: "i-catppuccin:nuxt-ignore",
+    to: "/docs/getting-started/integrations/icons",
+  },
+  {
+    title: "Django",
+    description:
+      "Backend powered by Django, a high-level Python web framework for rapid development.",
+    icon: "i-material-icon-theme:django",
+    to: "/docs/getting-started/integrations/color-mode",
+  },
+  {
+    title: "Lightweight graph library",
+    description:
+      "LW graph library integration for rendering interactive charts and graphs.",
+    icon: "i-lucide-chart-line",
+    to: "/docs/getting-started/integrations/graph-library",
+  },
+  {
+    title: "PostgreSQL",
+    description:
+      "Robust and scalable PostgreSQL database for reliable data storage and management.",
+    icon: "i-devicon-plain:postgresql-wordmark",
+    to: "/docs/getting-started/integrations/postgresql",
+  },
+  {
+    title: "Python",
+    description:
+      "Robust programming language for data analysis and solid mathematical computations.",
+    icon: "i-mdi:language-python",
+    to: "/docs/getting-started/integrations/python",
+  },
+  {
+    title: "Nuxt UI",
+    description:
+      "Beautiful and customizable UI components powered by Nuxt UI library.",
+    icon: "i-logos:nuxt-icon",
+    to: "/docs/getting-started/integrations/nuxt-ui",
+  },
+]);
+</script>
 
 <template>
   <div>
@@ -53,15 +98,12 @@ import { type } from '../../.nuxt/types/imports';
       class="discover p-8 max-w-4xl mx-auto flex flex-col items-center text-center gap-4"
     >
       <h2 class="text-2xl font-bold mb-4">Discover</h2>
-      <p class="text-gray-600">
+      <p class="text-gray-600 mb-6">
         Explore the features and benefits of PrimeTrading.
       </p>
-      <ul class="list-disc list-inside">
-        <li>Real-time market data</li>
-        <li>Advanced trading tools</li>
-        <li>Secure portfolio management</li>
-        <li>Comprehensive market analysis</li>
-      </ul>
+      <UPageGrid>
+        <UPageCard v-for="(card, index) in cards" :key="index" v-bind="card" />
+      </UPageGrid>
     </section>
   </div>
 </template>
