@@ -1,7 +1,0 @@
-Django>=5.0
-psycopg2-binary>=2.9
-python-dotenv
-djangorestframework
-django-environ
-djangorestframework-simplejwt
-requests
