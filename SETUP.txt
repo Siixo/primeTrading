@@ -67,4 +67,8 @@ docker-compose down
 # Stop and remove volumes (database data)
 docker-compose down -v
 
+#Test user
+username = testuser
+password = a3$aQ3yCSobQ#SH$
+
 

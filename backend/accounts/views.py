@@ -1,10 +1,19 @@
-from typing import TYPE_CHECKING
+from django.shortcuts import render
+
+# Create your views here.
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
+from typing import TYPE_CHECKING
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+#Importing TokenObtainPairView and TokenObtainPairSerializer in order to fix last_login error in database since it's not automatically updated
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.utils import timezone
 
 from .serializers import (
     UserRegistrationSerializer, 
@@ -88,3 +97,46 @@ class UserLogoutView(APIView):
             return Response({"message": "User logged out successfully."}, status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response({"error": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST)
+        
+class CustomTokenObtainPairView(TokenObtainPairView):
+    """
+    Custom view to obtain JWT token pair and set HttpOnly cookies.
+    """
+    serializer_class = TokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = self.get_user(request)
+        
+        if user:
+            user.last_login = timezone.now()
+            user.save(update_fields=['last_login'])
+        
+        # Get tokens from serializer
+        access = serializer.validated_data.get('access')
+        refresh = serializer.validated_data.get('refresh')
+        response = Response(serializer.validated_data, status=status.HTTP_200_OK)
+        
+        # Set HttpOnly cookies so we don't have to handle tokens in frontend
+        if access:
+            response.set_cookie(
+                'access_token', access,
+                httponly=True, secure=True, samesite='Lax'
+            )
+        if refresh:
+            response.set_cookie(
+                'refresh_token', refresh,
+                httponly=True, secure=True, samesite='Lax'
+            )
+        return response
+
+    def get_user(self, request):
+        username = request.data.get('username')
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        try:
+            return User.objects.get(username=username)
+        except User.DoesNotExist:
+            return None
+        

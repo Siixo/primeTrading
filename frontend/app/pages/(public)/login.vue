@@ -1,3 +1,4 @@
+import { NuxtRouteAnnouncer } from '../../../.nuxt/components';
 <template>
   <div
     class="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
@@ -22,16 +23,20 @@
           </p>
         </div>
 
-        <form class="space-y-6 flex flex-col justify-center">
+        <form
+          class="space-y-6 flex flex-col justify-center"
+          @submit.prevent="login(username, password)"
+        >
           <!-- Email/Username Field -->
           <UFormGroup
-            label="Email or Username"
-            name="identifier"
-            help="Enter your email address or username"
+            label="Username"
+            name="username"
+            help="Enter your username"
             class="text-center"
           >
             <UInput
-              placeholder="Enter your email or username"
+              v-model="username"
+              placeholder="Enter your username"
               icon="i-heroicons-user"
               size="xl"
               class="text-center"
@@ -42,6 +47,7 @@
           <!-- Password Field -->
           <UFormGroup label="Password" name="password" class="text-center">
             <UInput
+              v-model="password"
               type="password"
               placeholder="Enter your password"
               icon="i-heroicons-lock-closed"
@@ -92,7 +98,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="js">
 useHead({
   title: "Login - PrimeTrading",
   meta: [
@@ -103,6 +109,31 @@ useHead({
     },
   ],
 });
+
+const username = ref('');
+const password = ref('');
+const router = useRouter();
+
+async function login(username, password) {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/accounts/login/", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      router.push('/graphs');
+    } else {
+      console.error("Login failed:", data);
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+  }
+}
 </script>
 
 <style scoped>

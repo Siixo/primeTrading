@@ -23,6 +23,12 @@ const items = computed<NavigationMenuItem[]>(() => [
     active: route.path.startsWith("/predictions"),
   },
   {
+    label: "Profile",
+    to: "/profile",
+    icon: "i-heroicons-user-circle-20-solid",
+    active: route.path.startsWith("/profile"),
+  },
+  {
     label: "About",
     to: "/about",
     icon: "i-ic:outline-info",
